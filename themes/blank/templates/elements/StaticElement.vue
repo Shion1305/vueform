@@ -3,32 +3,32 @@
     <template #element>
       <!-- If content is HTML -->
       <template v-if="isHtml && (resolvedContent || ['img', 'hr'].indexOf(tag) !== -1)">
-        
-        <div v-if="!tag && allowHtml" :class="classes.content" v-html="resolvedContent" v-bind="attrs"></div>
+
+        <div v-if="!tag && allowHtml" :class="classes.content" v-html="sanitize(resolvedContent)" v-bind="attrs"></div>
         <div v-if="!tag && !allowHtml" :class="classes.content" v-bind="attrs">{{ content }}</div>
 
 
         <div v-if="tag === 'a'" :class="classes.tag">
-          <a v-if="allowHtml" :href="href" :target="target" v-bind="attrs" v-html="resolvedContent"></a>
+          <a v-if="allowHtml" :href="href" :target="target" v-bind="attrs" v-html="sanitize(resolvedContent)"></a>
           <a v-else :href="href" :target="target" v-bind="attrs">{{ resolvedContent }}</a>
         </div>
-        
+
         <div v-else-if="tag === 'hr'" :class="classes.tag">
           <hr v-bind="attrs" />
         </div>
-        
+
         <div v-else-if="tag === 'img'" :class="classes.tag">
           <a v-if="href" :href="href" :target="target">
             <img :src="src" :alt="alt" :title="title" :width="width" :height="height" v-bind="attrs" />
           </a>
           <img v-else :src="src" :alt="alt" :title="title" :width="width" :height="height" v-bind="attrs" />
         </div>
-        
+
         <div v-else :class="classes.tag">
-          <component :is="tag" v-if="allowHtml" v-html="resolvedContent" v-bind="attrs"></component>
+          <component :is="tag" v-if="allowHtml" v-html="sanitize(resolvedContent)" v-bind="attrs"></component>
           <component :is="tag" v-else v-bind="attrs">{{ resolvedContent }}</component>
         </div>
-        
+
       </template>
 
       <!-- If content is component -->
@@ -42,7 +42,7 @@
     <template v-for="(component, slot) in elementSlots" #[slot]><slot :name="slot" :el$="el$"><component :is="component" :el$="el$"/></slot></template>
   </component>
 
-  <div v-else-if="content && isHtml" :class="classes.content" v-html="resolvedContent"></div>
+  <div v-else-if="content && isHtml" :class="classes.content" v-html="sanitize(resolvedContent)"></div>
 
   <component v-else-if="content" :is="componentContent" ref="container" />
 
@@ -52,8 +52,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'StaticElement',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

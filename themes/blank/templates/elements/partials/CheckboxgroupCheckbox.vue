@@ -21,17 +21,20 @@
         :disabled="isDisabled"
         :aria-label="item.label"
       />
-      <span 
+      <span
         :class="classes.text"
-        v-html="item.label"
+        v-html="sanitize(item.label)"
       />
     </slot>
   </label>
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'CheckboxgroupCheckbox',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

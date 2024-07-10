@@ -157,6 +157,8 @@
     "@vueform/toggle": "^2.1.4",
     "axios": "^1.7.2",
     "color": "^4.2.3",
+    "dompurify": "^3.1.6",
+    "isomorphic-dompurify": "^2.13.0",
     "lodash": "^4.17.21",
     "mini-svg-data-uri": "^1.4.4",
     "moment": "^2.30.1",

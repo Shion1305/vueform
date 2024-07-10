@@ -14,17 +14,19 @@
         <span v-if="isLabelComponent">
           <component :is="stepLabel" :form$="form$"/>
         </span>
-        
+
         <!-- If label is HTML -->
-        <span v-else v-html="stepLabel"></span>
+        <span v-else v-html="sanitize(stepLabel)"></span>
       </slot>
     </a>
   </li>
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
   export default {
     name: 'FormStep',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

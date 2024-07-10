@@ -7,7 +7,7 @@
 
   <!-- If label is HTML -->
   <label v-else-if="label" :class="classes.container" :for="name" :id="id">
-    <span :class="classes.wrapper" v-html="label"></span>
+    <span :class="classes.wrapper" v-html="sanitize(label)"></span>
     <ElementInfo><slot name="info"/></ElementInfo>
   </label>
 
@@ -22,8 +22,10 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
   export default {
     name: 'ElementLabel',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

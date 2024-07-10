@@ -18,7 +18,7 @@
         <span
           v-if="Text"
           :class="classes.text"
-          v-html="Text"
+          v-html="sanitize(Text)"
         />
 
         <!-- If label is slot -->
@@ -35,8 +35,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'RadioElement',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

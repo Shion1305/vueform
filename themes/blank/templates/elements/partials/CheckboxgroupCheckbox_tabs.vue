@@ -28,9 +28,9 @@
           :name="name"
           :disabled="isDisabled"
         />
-        <span 
+        <span
           :class="classes.text"
-          v-html="`${item.label}`"
+          v-html="`${sanitize(item.label)}`"
         />
       </div>
     </slot>
@@ -38,8 +38,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'CheckboxgroupCheckbox_tabs',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

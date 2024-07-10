@@ -22,8 +22,8 @@
           :disabled="isDisabled"
         />
         <div :class="classes.text_wrapper">
-          <div :class="classes.text" v-html="item.label" />
-          <div :class="classes.description" v-html="item.description" />
+          <div :class="classes.text" v-html="sanitize(item.label)" />
+          <div :class="classes.description" v-html="sanitize(item.description)" />
         </div>
       </div>
     </slot>
@@ -31,8 +31,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'CheckboxgroupCheckbox_tabs',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

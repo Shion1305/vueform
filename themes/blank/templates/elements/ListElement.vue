@@ -46,7 +46,7 @@
         :id="`${fieldId}-add-button`"
         @click.prevent="handleAdd"
         @keypress.enter.space="handleAdd"
-        v-html="addLabel"
+        v-html="sanitize(addLabel)"
         role="button"
         tabindex="0"
       />
@@ -58,8 +58,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'ListElement',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

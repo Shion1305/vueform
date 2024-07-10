@@ -3,7 +3,7 @@
     <div
       v-for="(message, key, index) in messages"
       :class="classes.message"
-      v-html="message"
+      v-html="sanitize(message)"
       :key="index"
     >
     </div>
@@ -11,8 +11,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'FormMessages',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

@@ -1,9 +1,9 @@
 <template>
   <div :class="classes.container">
-    <div  
+    <div
       v-for="(error, key, index) in errors"
       :class="classes.error"
-      v-html="error"
+      v-html="sanitize(error)"
       :key="index"
     >
     </div>
@@ -11,9 +11,10 @@
 </template>
 
 <script>
-
+  import {sanitize} from "isomorphic-dompurify";
   export default {
     name: 'FormErrors',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

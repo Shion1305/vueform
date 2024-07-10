@@ -13,7 +13,7 @@
   <!-- If label is HTML -->
   <button
     v-else-if="visible && label"
-    v-html="label"
+    v-html="sanitize(label)"
   	:disabled="isDisabled"
     :class="classes.button"
   	@click.prevent="handleClick"
@@ -31,8 +31,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'FormStepsControl',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

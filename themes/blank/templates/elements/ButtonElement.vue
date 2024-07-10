@@ -25,11 +25,11 @@
             ...button,
             ...aria,
           }"
-          v-html="resolvedButtonLabel"
+          v-html="sanitize(resolvedButtonLabel)"
           :tabindex="isDisabled || isLoading ? -1 : undefined"
           :class="classes.button"
           :disabled="isDisabled"
-          @click.prevent="handleClick" 
+          @click.prevent="handleClick"
         ></button>
 
         <!-- Use it as slot -->
@@ -69,7 +69,7 @@
             ...button,
             ...aria,
           }"
-          v-html="resolvedButtonLabel"
+          v-html="sanitize(resolvedButtonLabel)"
           :tabindex="isDisabled || isLoading ? -1 : undefined"
           :class="classes.button"
           @click="handleClick"
@@ -95,8 +95,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'ButtonElement',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

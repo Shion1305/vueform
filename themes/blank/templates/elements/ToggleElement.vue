@@ -14,7 +14,7 @@
           @input="handleChange"
           ref="input"
        />
-        <span v-if="Text" :class="classes.text" v-html="Text"></span>
+        <span v-if="Text" :class="classes.text" v-html="sanitize(Text)"></span>
         <span v-else :class="classes.text"><slot :el$="el$"><component :is="fieldSlots.default" :el$="el$"/></slot></span>
       </div>
     </template>
@@ -26,9 +26,11 @@
 
 <script>
 import Toggle from '@vueform/toggle/src/Toggle.vue'
+import {sanitize} from "isomorphic-dompurify";
 
   export default {
     name: 'ToggleElement',
+    methods: {sanitize},
     components: {
       Toggle,
     },

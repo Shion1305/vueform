@@ -111,10 +111,10 @@
           />
 
           <!-- Placeholder -->
-          <div 
+          <div
             v-show="showPlaceholder"
             :class="classes.placeholder"
-            v-html="placeholderText"
+            v-html="sanitize(placeholderText)"
           />
 
           <!-- Upload container -->
@@ -131,7 +131,7 @@
               <!-- DnD text -->
               <div
                 v-if="droppable"
-                :class="classes.dndText"  
+                :class="classes.dndText"
               >
                 {{ dndText }}
               </div>
@@ -225,8 +225,11 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'SignatureElement',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

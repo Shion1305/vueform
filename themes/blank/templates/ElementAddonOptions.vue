@@ -21,11 +21,11 @@
         />
         <div
           v-else-if="selected.valueDisplay && typeof selected.valueDisplay === 'function'"
-          v-html="selected.valueDisplay(selected, el$)"
+          v-html="sanitize(selected.valueDisplay(selected, el$))"
         />
         <div
           v-else
-          v-html="selected.label"
+          v-html="sanitize(selected.label)"
         />
       </template>
       <template v-else>
@@ -37,11 +37,11 @@
         />
         <div
           v-else-if="placeholder && typeof placeholder === 'function'"
-          v-html="placeholder(selected, el$)"
+          v-html="sanitize(placeholder(selected, el$))"
         />
         <div
           v-else
-          v-html="placeholder"
+          v-html="sanitize(placeholder)"
         />
       </template>
       <div :class="classes.caret" />
@@ -82,7 +82,7 @@
 
             <div
               v-else-if="option.display && typeof option.display === 'function'"
-              v-html="option.display(option, index, selected.index === option.index, pointed.index === option.index, el$)"
+              v-html="sanitize(option.display(option, index, selected.index === option.index, pointed.index === option.index, el$))"
               :class="classes.option(option, index, el$)"
               :data-index="option.index"
               :data-selected="selected.index === option.index"
@@ -96,7 +96,7 @@
 
             <div
               v-else
-              v-html="option.label"
+              v-html="sanitize(option.label)"
               :class="classes.option(option, index, el$)"
               :data-index="option.index"
               :data-selected="selected.index === option.index"
@@ -115,8 +115,10 @@
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
   export default {
     name: 'ElementAddonOptions',
+    methods: {sanitize},
     data() {
       return {
         merge: true,

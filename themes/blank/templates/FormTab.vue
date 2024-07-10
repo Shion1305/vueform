@@ -13,17 +13,20 @@
         <span v-if="isLabelComponent">
           <component :is="tabLabel" :form$="form$"/>
         </span>
-        
+
         <!-- If label is HTML -->
-        <span v-else v-html="tabLabel"></span>
+        <span v-else v-html="sanitize(tabLabel)"></span>
       </slot>
     </div>
   </li>
 </template>
 
 <script>
+  import {sanitize} from "isomorphic-dompurify";
+
   export default {
     name: 'FormTab',
+    methods: {sanitize},
     data() {
       return {
         merge: true,
