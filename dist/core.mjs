@@ -1,5 +1,5 @@
 /*!
- * Vueform v1.10.0 (https://github.com/vueform/vueform)
+ * Vueform v1.10.1 (https://github.com/vueform/vueform)
  * Copyright (c) 2024 Adam Berecz <adam@vueform.com>
  * Licensed under the MIT License
  */
@@ -10031,7 +10031,7 @@ function shouldApplyPlugin (name, plugin) {
 }
 
 var name = "@vueform/vueform";
-var version$1 = "1.10.0";
+var version$1 = "1.10.1";
 var description = "Open-Source Form Framework for Vue";
 var homepage = "https://vueform.com";
 var license = "MIT";
@@ -10187,6 +10187,8 @@ var dependencies = {
 	"@vueform/toggle": "^2.1.4",
 	axios: "^1.7.2",
 	color: "^4.2.3",
+	dompurify: "^3.1.6",
+	"isomorphic-dompurify": "^2.13.0",
 	lodash: "^4.17.21",
 	"mini-svg-data-uri": "^1.4.4",
 	moment: "^2.30.1",
@@ -39813,7 +39815,7 @@ function useSignature (props, context, dependencies) {
   /**
    * The current font size.
    *
-   * @type {}
+   * @type {number}
    */
   var fontSize = ref(maxFontSize.value);
 
@@ -39834,7 +39836,7 @@ function useSignature (props, context, dependencies) {
   /**
    * The [Signature Pad](https://github.com/szimek/signature_pad) instance.
    *
-   * @type {}
+   * @type {object}
    */
   var pad = ref(null);
 
@@ -39988,7 +39990,7 @@ function useSignature (props, context, dependencies) {
   /**
    * The list of [`fonts`](#option-fonts) formatted for fonts selector.
    *
-   * @type {}
+   * @type {array}
    */
   var resolvedFonts = computed(() => {
     return fontFamilies.value.map((font, i) => {
@@ -40328,7 +40330,7 @@ function useSignature (props, context, dependencies) {
   /**
    * The style attributes of the signature input when [`mode`](#property-mode) is `type`.
    *
-   * @type {}
+   * @type {object}
    */
   var inputStyle = computed(() => {
     return {
@@ -40344,7 +40346,7 @@ function useSignature (props, context, dependencies) {
   /**
    * The style attributes of the signature line.
    *
-   * @type {}
+   * @type {object}
    */
   var lineStyle = computed(() => {
     return {
